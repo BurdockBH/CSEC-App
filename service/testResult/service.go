@@ -43,12 +43,12 @@ func CreateTestResult(w http.ResponseWriter, r *http.Request) {
 
 	err = testResult.CreateTestResult(&t, claims)
 	if err != nil {
-		log.Println("Failed to register user:", err)
+		log.Println("Failed to create result:", err)
 		response, _ := json.Marshal(viewmodels.BaseResponse{
 			StatusCode: statusCodes.FailedToCreateTestResult,
 			Message:    statusCodes.StatusCodes[statusCodes.FailedToCreateTestResult] + ": " + err.Error(),
 		})
-		helper.BaseResponse(w, response, http.StatusInternalServerError)
+		helper.BaseResponse(w, response, http.StatusUnauthorized)
 		return
 	}
 
@@ -91,9 +91,9 @@ func DeleteTestResult(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = testResult.DeleteTestResult(&idRequest)
+	err = testResult.DeleteTestResult(&idRequest, claims)
 	if err != nil {
-		log.Println("Failed to register user:", err)
+		log.Println("Failed to delete test result:", err)
 		response, _ := json.Marshal(viewmodels.BaseResponse{
 			StatusCode: statusCodes.FailedToDeleteTestResult,
 			Message:    statusCodes.StatusCodes[statusCodes.FailedToDeleteTestResult] + ": " + err.Error(),
@@ -143,12 +143,12 @@ func EditTestResult(w http.ResponseWriter, r *http.Request) {
 
 	err = testResult.EditTestResult(&result, claims)
 	if err != nil {
-		log.Println("Failed to register user:", err)
+		log.Println("Failed to edit test result:", err)
 		response, _ := json.Marshal(viewmodels.BaseResponse{
 			StatusCode: statusCodes.FailedToEditTestResult,
 			Message:    statusCodes.StatusCodes[statusCodes.FailedToEditTestResult] + ": " + err.Error(),
 		})
-		helper.BaseResponse(w, response, http.StatusInternalServerError)
+		helper.BaseResponse(w, response, http.StatusUnauthorized)
 		return
 	}
 

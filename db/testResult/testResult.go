@@ -2,7 +2,6 @@ package testResult
 
 import (
 	"CSEC-App/db"
-	"CSEC-App/router/helper"
 	"CSEC-App/viewmodels"
 	"database/sql"
 	"errors"
@@ -43,7 +42,7 @@ func CreateTestResult(testResult *viewmodels.TestResult, claim jwt.MapClaims) er
 	return nil
 }
 
-func DeleteTestResult(result *viewmodels.TestIdRequest) error {
+func DeleteTestResult(result *viewmodels.TestIdRequest, claim jwt.MapClaims) error {
 	query := "CALL DeleteTestResult(?)"
 	st, err := db.DB.Prepare(query)
 	if err != nil {
@@ -51,14 +50,6 @@ func DeleteTestResult(result *viewmodels.TestIdRequest) error {
 		return err
 	}
 	defer st.Close()
-
-	var token = result.Token
-
-	claim, err := helper.ValidateToken(token)
-	if err != nil {
-		log.Printf("Error validating token: %v", err)
-		return err
-	}
 
 	role := claim["role"].(string)
 

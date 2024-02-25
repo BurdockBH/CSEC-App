@@ -104,15 +104,15 @@ func LoginUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	jsonResponse, err := json.Marshal(viewmodels.LoginResponse{AccessToken: token, HashedID: userInfo.ID, BaseResponse: viewmodels.BaseResponse{
+	jsonResponse, err := json.Marshal(viewmodels.LoginResponse{AccessToken: token, BaseResponse: viewmodels.BaseResponse{
 		StatusCode: statusCodes.SuccesfullyLoggedInUser,
-		Message:    statusCodes.StatusCodes[statusCodes.SuccesfullyLoggedInUser] + ":" + userLogin.Email,
+		Message:    statusCodes.StatusCodes[statusCodes.SuccesfullyLoggedInUser] + ": " + userLogin.Email,
 	}})
 	if err != nil {
 		log.Println("Failed to marshal json:", err)
 		response, _ := json.Marshal(viewmodels.BaseResponse{
 			StatusCode: statusCodes.FailedToMarshalJSON,
-			Message:    statusCodes.StatusCodes[statusCodes.FailedToMarshalJSON] + ":" + err.Error(),
+			Message:    statusCodes.StatusCodes[statusCodes.FailedToMarshalJSON] + ": " + err.Error(),
 		})
 		helper.BaseResponse(w, response, http.StatusInternalServerError)
 		return

@@ -10,7 +10,6 @@ type BaseResponse struct {
 type LoginResponse struct {
 	BaseResponse
 	AccessToken string `json:"token"`
-	HashedID    string `json:"hashed_id"`
 }
 
 // UserList is the response model for user
