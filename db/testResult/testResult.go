@@ -54,8 +54,8 @@ func DeleteTestResult(result *viewmodels.TestIdRequest, claim jwt.MapClaims) err
 	role := claim["role"].(string)
 
 	if role != "lab_technician" {
-		log.Printf("User with role %v is not authorized to create test results", role)
-		return errors.New("user is not authorized to create test results")
+		log.Printf("User with role %v is not authorized to delete test results", role)
+		return errors.New("user is not authorized to delete test results")
 	}
 
 	var deleted int
