@@ -45,7 +45,7 @@ func (u *TestResult) Validate() error {
 
 func (i *TestIdRequest) ValidateItemIdRequest() error {
 	if len(i.ID) == 0 {
-		return errors.New("Id must be positive")
+		return errors.New("id must not be null")
 	}
 	return nil
 }

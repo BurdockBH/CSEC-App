@@ -38,8 +38,8 @@ func RegisterUser(u *viewmodels.User) error {
 	}
 
 	if created != 1 {
-		log.Printf("User with email: %v or phone number: %v already exists", u.Email, u.LastName)
-		return fmt.Errorf("user with email %v or phone number %v already exists", u.Email, u.LastName)
+		log.Printf("User with email: %v already exists", u.Email)
+		return fmt.Errorf("user with email %v already exists", u.Email)
 	}
 
 	return nil
